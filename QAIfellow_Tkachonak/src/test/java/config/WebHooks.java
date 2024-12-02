@@ -1,10 +1,9 @@
 package config;
 
 import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import com.codeborne.selenide.Selenide;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,8 +12,7 @@ import java.util.Properties;
 import static com.codeborne.selenide.Selenide.open;
 
 public class WebHooks {
-
-    @BeforeEach
+    @Before
     public void initBrowser() throws IOException {
         Properties properties = new Properties();
         FileInputStream fis = new FileInputStream("src/test/resources/test.properties");
@@ -34,9 +32,8 @@ public class WebHooks {
         open("https://edujira.ifellow.ru/");
     }
 
-    @AfterEach
-    public void closeDriver() {
-        WebDriver driver = new ChromeDriver();
-        driver.quit();
+    @After()
+    public void after() {
+        Selenide.closeWebDriver();
     }
 }

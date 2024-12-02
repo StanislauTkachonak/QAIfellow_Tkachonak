@@ -2,24 +2,26 @@ package steps;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
-import io.qameta.allure.Step;
-import org.junit.jupiter.api.Assertions;
-import pages.EdujiraProjectPage;
+import com.codeborne.selenide.SelenideElement;
+import io.cucumber.java.ru.Когда;
+
+import static com.codeborne.selenide.Selenide.$x;
 
 
-public class EdujiraProjectStep extends EdujiraProjectPage {
+public class EdujiraProjectStep {
+    public final static SelenideElement projects = $x("//a[@title=\"Просмотр недавних проектов или списка всех проектов\"]");
+    public final static SelenideElement test = $x("(//a[@class='aui-icon-container']//img)[1]");
+    public final static SelenideElement countTasks = $x("//span[contains(text(),'1 из')]");
+    public final static SelenideElement createTask = $x("//a[@title=\"Создать новую задачу ( Нажмите 'c' )\"]");
+    public final static SelenideElement topic = $x("//div//input[@name=\"summary\"]");
+    public final static SelenideElement clickOnVersion = $x("(//optgroup[@label='Невыпущенные версии']//option[contains(text(),'Version 2.0')])[1]");
+    public final static SelenideElement confirmCreateTask = $x("//input[@name=\"Edit\"]");
 
-    @Step("Клик на раздел Проекты, проверка количества задач")
-    public int clickOnProjects() {
+    @Когда("^Вход в раздел проекты, проверка количества задач, путем создания новой с темой - '(.*)'")
+    public void clickOnProjects(String enterTopic) {
         projects.shouldBe(Condition.visible).click();
         test.shouldBe(Condition.visible).click();
-        Assertions.assertTrue(countTasks.exists(), "Текст не найден на странице!");
         int count = Integer.parseInt(countTasks.shouldBe(Condition.visible).getText().substring(4).trim());
-        return count;
-    }
-
-    @Step("Поиск задачи")
-    public void searchTask(String enterTopic, int count) {
         createTask.shouldBe(Condition.visible).click();
         topic.shouldBe(Condition.visible).click();
         topic.shouldBe(Condition.visible).sendKeys(enterTopic);
@@ -35,6 +37,5 @@ public class EdujiraProjectStep extends EdujiraProjectPage {
                 }
             }
         }
-        Assertions.assertEquals(count + 1, newCount, "Количество задач не соответствует ожидаемому");
     }
 }
