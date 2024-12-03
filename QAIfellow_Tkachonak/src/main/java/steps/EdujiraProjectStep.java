@@ -3,7 +3,7 @@ package steps;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import io.cucumber.java.ru.Когда;
+import io.cucumber.java.ru.Дано;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -17,7 +17,7 @@ public class EdujiraProjectStep {
     public final static SelenideElement clickOnVersion = $x("(//optgroup[@label='Невыпущенные версии']//option[contains(text(),'Version 2.0')])[1]");
     public final static SelenideElement confirmCreateTask = $x("//input[@name=\"Edit\"]");
 
-    @Когда("^Вход в раздел проекты, проверка количества задач, путем создания новой с темой - '(.*)'")
+    @Дано("^Вход в раздел проекты, проверка количества задач, путем создания новой с темой - '(.*)'")
     public void clickOnProjects(String enterTopic) {
         projects.shouldBe(Condition.visible).click();
         test.shouldBe(Condition.visible).click();

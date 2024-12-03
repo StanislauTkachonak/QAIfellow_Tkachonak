@@ -2,7 +2,6 @@ package steps;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 
@@ -16,18 +15,10 @@ public class EdujiraStartStep {
     public final static SelenideElement buttonEnter = $x("//input[@name=\"login\"]");
     public final static SelenideElement chekText = $x("//h1[text()='System Dashboard']");
 
-    @Когда("^Ввод логина '(.*)'")
-    public void setUserLogin(String userLogin) {
+    @Когда("^Ввод логина и пароля '(.*)', '(.*)'")
+    public void setUserLogin(String userLogin, String userPassword) {
         login.shouldBe(Condition.visible).setValue(userLogin);
-    }
-
-    @И("^Ввод пароля '(.*)'")
-    public void setUserPassword(String userPassword) {
         password.shouldBe(Condition.visible).setValue(userPassword);
-    }
-
-    @И("Клик по кнопке Вход")
-    public void clickEnter() {
         buttonEnter.shouldBe(Condition.visible).click();
     }
 
