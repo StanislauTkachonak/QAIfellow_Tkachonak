@@ -1,23 +1,21 @@
 package tests;
 
-import api.apiSteps.PotatoApi;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import steps.PotatoSteps;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class PotatoTest {
-    private static final PotatoApi potatoApi = new PotatoApi();
 
     @Test
     @DisplayName("Создание пользователя и проверка данных")
-    public void createUser() throws FileNotFoundException {
-        Response response = potatoApi.createNewUserFromFile();
-        String actualName = response.jsonPath().getString("name");
-        String actualJob = response.jsonPath().getString("job");
+    public void checkUser() throws IOException {
+        PotatoSteps potatoSteps = new PotatoSteps();
+        String actualName = potatoSteps.createUserName();
         Assertions.assertEquals("Tomato", actualName, "Имя в ответе не совпадает");
+        String actualJob = potatoSteps.createUserJob();
         Assertions.assertEquals("Eat maket", actualJob, "Работа в ответе не совпадает");
     }
 }
