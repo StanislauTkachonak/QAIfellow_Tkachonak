@@ -1,10 +1,9 @@
 package config;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -36,7 +35,6 @@ public class WebHooks {
 
     @AfterEach
     public void closeDriver() {
-        WebDriver driver = new ChromeDriver();
-        driver.quit();
+        Selenide.closeWebDriver();
     }
 }
