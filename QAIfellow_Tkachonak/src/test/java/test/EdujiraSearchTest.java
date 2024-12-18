@@ -2,31 +2,34 @@ package test;
 
 import config.WebHooks;
 import org.junit.jupiter.api.Test;
-import steps.*;
+import steps.EdujiraBagStep;
+import steps.EdujiraProjectStep;
+import steps.EdujiraStartStep;
+import steps.EdujiraTestSeleniumATHomeworkStep;
 
 public class EdujiraSearchTest extends WebHooks {
 
     @Test
     public void authorizationTest(){
-        new EdujiraStartStep().authorization("AT3", "Qwerty123");
+        new EdujiraStartStep().authorization(config.Configuration.getConfigurationValue("login"), config.Configuration.getConfigurationValue("password"));
     }
 
     @Test
     public void clickOnProjectsTest(){
-        new EdujiraStartStep().authorization("AT3", "Qwerty123");
+        new EdujiraStartStep().authorization(config.Configuration.getConfigurationValue("login"), config.Configuration.getConfigurationValue("password"));
         new EdujiraProjectStep().clickOnProjects();
     }
     
     @Test
     public void searchTaskTest(){
-        new EdujiraStartStep().authorization("AT3", "Qwerty123");
+        new EdujiraStartStep().authorization(config.Configuration.getConfigurationValue("login"), config.Configuration.getConfigurationValue("password"));
         int count = new EdujiraProjectStep().clickOnProjects();
         new EdujiraProjectStep().searchTask("HW3", count);
     }
 
     @Test
     public void clickOnTestSeleniumTest(){
-        new EdujiraStartStep().authorization("AT3", "Qwerty123");
+        new EdujiraStartStep().authorization(config.Configuration.getConfigurationValue("login"), config.Configuration.getConfigurationValue("password"));
         int count = new EdujiraProjectStep().clickOnProjects();
         new EdujiraProjectStep().searchTask("HW3", count);
         new EdujiraTestSeleniumATHomeworkStep().clickOnTestSelenium("TestSeleniumATHomework");
@@ -34,7 +37,7 @@ public class EdujiraSearchTest extends WebHooks {
 
     @Test
     public void checkAllTasksTest() {
-        new EdujiraStartStep().authorization("AT3", "Qwerty123");
+        new EdujiraStartStep().authorization(config.Configuration.getConfigurationValue("login"), config.Configuration.getConfigurationValue("password"));
         int count = new EdujiraProjectStep().clickOnProjects();
         new EdujiraProjectStep().searchTask("HW3", count);
         new EdujiraTestSeleniumATHomeworkStep().clickOnTestSelenium("TestSeleniumATHomework");
