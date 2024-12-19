@@ -4,29 +4,32 @@ import api.apiSteps.MortyApi;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import io.qameta.allure.Step;
+import io.cucumber.java.ru.И;
+import io.cucumber.java.ru.Когда;
+import io.cucumber.java.ru.Тогда;
 import org.apache.http.HttpStatus;
 
 import java.util.logging.Logger;
 
-import static config.Props.props;
+import static utils.Configuration.getConfigurationValue;
+
 
 public class MortySteps {
     private static final MortyApi mortyApi = new MortyApi();
     private static final Logger log = Logger.getLogger(MortySteps.class.getName());
 
     public String getInfoMorty(String url) {
-        String value = mortyApi.getInfo(url)
+        return mortyApi.getInfo(url)
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .body()
                 .asString();
-        return value;
     }
 
-    @Step("Получаем последний эпизод, где появлялся Морти")
+    @Когда("Получаем последний эпизод, где появлялся Морти")
     public String getLastMortyEpisode() {
-        String mortyResponse = getInfoMorty(props.mortyCharacterUrl() + "character/2");
+
+        String mortyResponse = getInfoMorty(getConfigurationValue("morty.character.url") + "character/2");
         JsonObject mortyObject = JsonParser.parseString(mortyResponse).getAsJsonObject();
         JsonArray episodes = mortyObject.getAsJsonArray("episode");
         String lastEpisode = episodes.get(episodes.size() - 1).getAsString();
@@ -34,9 +37,9 @@ public class MortySteps {
         return lastEpisode;
     }
 
-    @Step("Находим данные последнего персонажа в последнем эпизоде")
+    @И("Находим данные последнего персонажа в последнем эпизоде")
     public JsonObject getLastCharacter() {
-        String response = getInfoMorty(props.mortyCharacterUrl() + "episode");
+        String response = getInfoMorty(getConfigurationValue("morty.character.url") + "episode");
         JsonObject responseObject = JsonParser.parseString(response).getAsJsonObject();
         JsonArray episodes = responseObject.getAsJsonArray("results");
         JsonObject lastEpisode = episodes.get(episodes.size() - 1).getAsJsonObject();
@@ -47,7 +50,7 @@ public class MortySteps {
         return characterObject;
     }
 
-    @Step("Получаем данные последнего персонажа из последнего эпизода")
+    @И("Получаем данные последнего персонажа из последнего эпизода")
     public String getLastCharacterName() {
         JsonObject characterObject = getLastCharacter();
         String characterName = characterObject.get("name").getAsString();
@@ -55,7 +58,7 @@ public class MortySteps {
         return characterName;
     }
 
-    @Step("Получаем местоположение последнего персонажа из последнего эпизода")
+    @И("Получаем местоположение последнего персонажа из последнего эпизода")
     public String getLastCharacterLocation() {
         JsonObject characterObject = getLastCharacter();
         String characterLocation = characterObject.getAsJsonObject("location").get("name").getAsString();
@@ -63,7 +66,7 @@ public class MortySteps {
         return characterLocation;
     }
 
-    @Step("Получаем расу последнего персонажа из последнего эпизода")
+    @И("Получаем расу последнего персонажа из последнего эпизода")
     public String getLastCharacterSpecies() {
         JsonObject characterObject = getLastCharacter();
         String characterSpecies = characterObject.get("species").getAsString();
@@ -71,18 +74,18 @@ public class MortySteps {
         return characterSpecies;
     }
 
-    @Step("Получаем информацию о местонахождении Морти")
+    @И("Получаем информацию о местонахождении Морти")
     public String getMortyLocation() {
-        String mortyResponse = getInfoMorty(props.mortyCharacterUrl() + "character/2");
+        String mortyResponse = getInfoMorty(getConfigurationValue("morty.character.url") + "character/2");
         JsonObject mortyObject = JsonParser.parseString(mortyResponse).getAsJsonObject();
         String mortyLocation = mortyObject.getAsJsonObject("location").get("name").getAsString();
         log.info("Местоположение: " + mortyLocation);
         return mortyLocation;
     }
 
-    @Step("Получаем информацию о расе Морти")
+    @Тогда("Получаем информацию о расе Морти")
     public String getMortySpecies() {
-        String mortyResponse = getInfoMorty(props.mortyCharacterUrl() + "character/2");
+        String mortyResponse = getInfoMorty(getConfigurationValue("morty.character.url") + "character/2");
         JsonObject mortyObject = JsonParser.parseString(mortyResponse).getAsJsonObject();
         String mortySpecies = mortyObject.get("species").getAsString();
         log.info("Раса: " + mortySpecies);
