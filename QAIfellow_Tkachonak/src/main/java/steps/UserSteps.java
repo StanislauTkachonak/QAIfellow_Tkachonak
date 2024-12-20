@@ -1,6 +1,6 @@
 package steps;
 
-import api.apiSteps.UserApi;
+import apiSteps.UserApi;
 import io.cucumber.java.ru.Дано;
 import io.restassured.response.Response;
 

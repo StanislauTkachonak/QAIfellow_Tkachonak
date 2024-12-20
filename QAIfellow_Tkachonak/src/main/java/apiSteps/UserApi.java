@@ -1,4 +1,4 @@
-package api.apiSteps;
+package apiSteps;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
