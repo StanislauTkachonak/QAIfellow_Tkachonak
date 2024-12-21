@@ -1,6 +1,6 @@
 package steps;
 
-import apiSteps.MortyApi;
+import api.steps.MortyApi;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

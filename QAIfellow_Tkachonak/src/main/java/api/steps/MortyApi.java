@@ -1,4 +1,4 @@
-package apiSteps;
+package api.steps;
 
 import io.restassured.response.ValidatableResponse;
 

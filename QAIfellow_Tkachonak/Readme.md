@@ -5,7 +5,7 @@
 ***Запуск тестов***
 
 ```bash
-mvn clean test -Dgroup=*Test*
+mvn clean test -Dgroup*
 
 Построение отчета
 mvn allure:serve
