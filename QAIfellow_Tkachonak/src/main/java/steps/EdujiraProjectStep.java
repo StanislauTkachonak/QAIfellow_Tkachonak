@@ -14,8 +14,7 @@ public class EdujiraProjectStep extends EdujiraProjectPage {
         projects.shouldBe(Condition.visible).click();
         test.shouldBe(Condition.visible).click();
         Assertions.assertTrue(countTasks.exists(), "Текст не найден на странице!");
-        int count = Integer.parseInt(countTasks.shouldBe(Condition.visible).getText().substring(4).trim());
-        return count;
+        return Integer.parseInt(countTasks.shouldBe(Condition.visible).getText().substring(4).trim());
     }
 
     @Step("Поиск задачи")
