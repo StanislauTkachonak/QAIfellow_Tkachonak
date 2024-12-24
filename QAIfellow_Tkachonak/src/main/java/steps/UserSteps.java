@@ -10,20 +10,20 @@ import java.util.logging.Logger;
 import static utils.Configuration.getConfigurationValue;
 
 public class UserSteps {
-    private static final UserApi UserApi = new UserApi();
+    private static final UserApi userApi = new UserApi();
     private static final Logger log = Logger.getLogger(UserSteps.class.getName());
 
-    @Дано("Проверка имени пользователя")
+    @Дано("Проверяем имя пользователя")
     public String createUserName() throws IOException {
-        Response response = UserApi.createNewUserFromFile(getConfigurationValue("user.url"));
+        Response response = userApi.createNewUserFromFile(getConfigurationValue("user.url"));
         String actualName = response.jsonPath().getString("name");
         log.info("Имя нового пользователя: " + actualName);
         return actualName;
     }
 
-    @Дано("Проверка работы пользователя")
+    @Дано("Проверяем работу пользователя")
     public String createUserJob() throws IOException {
-        Response response = UserApi.createNewUserFromFile(getConfigurationValue("user.url"));
+        Response response = userApi.createNewUserFromFile(getConfigurationValue("user.url"));
         String actualJob = response.jsonPath().getString("job");
         log.info("Работа нового пользователя: " + actualJob);
         return actualJob;

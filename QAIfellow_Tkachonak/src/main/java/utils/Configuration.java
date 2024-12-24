@@ -1,9 +1,5 @@
 package utils;
 
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.cucumber.java.BeforeAll;
-import io.qameta.allure.selenide.AllureSelenide;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -25,16 +21,5 @@ public class Configuration {
 
     public static String getConfigurationValue(String key) {
         return (System.getProperty(key) == null) ? properties.getProperty(key) : System.getProperty(key);
-    }
-
-    @BeforeAll
-    public static void allureSubThreadParallel() {
-        String listenerName = "AllureSelenide";
-
-        if (!SelenideLogger.hasListener(listenerName))
-            SelenideLogger.addListener(listenerName,
-                    new AllureSelenide()
-                            .screenshots(true)
-                            .savePageSource(false));
     }
 }

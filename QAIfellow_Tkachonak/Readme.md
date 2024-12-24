@@ -1,4 +1,4 @@
-# Проект разработан с использованием: Java, Junit, Maven, Cucumber, Allure
+# Проект разработан с использованием: Java17, Junit, Maven, Cucumber, Allure, RestAssured
 
 ## Работа с документацией  по АPI по сериалу Рик и Морти: [ссылка](https://rickandmortyapi.com/documentation/#episode-schema)
 

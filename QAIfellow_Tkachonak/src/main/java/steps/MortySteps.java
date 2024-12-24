@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
-import org.apache.http.HttpStatus;
 
 import java.util.logging.Logger;
 
@@ -18,18 +17,9 @@ public class MortySteps {
     private static final MortyApi mortyApi = new MortyApi();
     private static final Logger log = Logger.getLogger(MortySteps.class.getName());
 
-    public String getInfoMorty(String url) {
-        return mortyApi.getInfo(url)
-                .statusCode(HttpStatus.SC_OK)
-                .extract()
-                .body()
-                .asString();
-    }
-
     @Когда("Получаем последний эпизод, где появлялся Морти")
     public String getLastMortyEpisode() {
-
-        String mortyResponse = getInfoMorty(getConfigurationValue("morty.character.url") + "character/2");
+        String mortyResponse = mortyApi.getInfoMorty(getConfigurationValue("morty.character.url") + "character/2");
         JsonObject mortyObject = JsonParser.parseString(mortyResponse).getAsJsonObject();
         JsonArray episodes = mortyObject.getAsJsonArray("episode");
         String lastEpisode = episodes.get(episodes.size() - 1).getAsString();
@@ -39,13 +29,13 @@ public class MortySteps {
 
     @И("Находим данные последнего персонажа в последнем эпизоде")
     public JsonObject getLastCharacter() {
-        String response = getInfoMorty(getConfigurationValue("morty.character.url") + "episode");
+        String response = mortyApi.getInfoMorty(getConfigurationValue("morty.character.url") + "episode");
         JsonObject responseObject = JsonParser.parseString(response).getAsJsonObject();
         JsonArray episodes = responseObject.getAsJsonArray("results");
         JsonObject lastEpisode = episodes.get(episodes.size() - 1).getAsJsonObject();
         JsonArray characters = lastEpisode.getAsJsonArray("characters");
         String lastCharacterUrl = characters.get(characters.size() - 1).getAsString();
-        String characterResponse = getInfoMorty(lastCharacterUrl);
+        String characterResponse = mortyApi.getInfoMorty(lastCharacterUrl);
         return JsonParser.parseString(characterResponse).getAsJsonObject();
     }
 
@@ -75,7 +65,7 @@ public class MortySteps {
 
     @И("Получаем информацию о местонахождении Морти")
     public String getMortyLocation() {
-        String mortyResponse = getInfoMorty(getConfigurationValue("morty.character.url") + "character/2");
+        String mortyResponse = mortyApi.getInfoMorty(getConfigurationValue("morty.character.url") + "character/2");
         JsonObject mortyObject = JsonParser.parseString(mortyResponse).getAsJsonObject();
         String mortyLocation = mortyObject.getAsJsonObject("location").get("name").getAsString();
         log.info("Местоположение: " + mortyLocation);
@@ -84,7 +74,7 @@ public class MortySteps {
 
     @Тогда("Получаем информацию о расе Морти")
     public String getMortySpecies() {
-        String mortyResponse = getInfoMorty(getConfigurationValue("morty.character.url") + "character/2");
+        String mortyResponse = mortyApi.getInfoMorty(getConfigurationValue("morty.character.url") + "character/2");
         JsonObject mortyObject = JsonParser.parseString(mortyResponse).getAsJsonObject();
         String mortySpecies = mortyObject.get("species").getAsString();
         log.info("Раса: " + mortySpecies);

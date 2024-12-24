@@ -1,19 +1,12 @@
-import io.cucumber.core.options.Constants;
+import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
-import org.junit.platform.suite.api.ConfigurationParameter;
-import org.junit.platform.suite.api.IncludeEngines;
-import org.junit.platform.suite.api.SelectClasspathResource;
-import org.junit.platform.suite.api.Suite;
+import org.junit.runner.RunWith;
 
-import static io.cucumber.core.options.Constants.FEATURES_PROPERTY_NAME;
 
-@Suite
-@IncludeEngines("cucumber")
-@SelectClasspathResource("src/main/java/steps")
-@ConfigurationParameter(key = FEATURES_PROPERTY_NAME, value = "src/test/resources/scenarios.feature")
-@ConfigurationParameter(key = Constants.EXECUTION_DRY_RUN_PROPERTY_NAME, value = "false")
-@CucumberOptions(plugin = "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm")
-
+@RunWith(Cucumber.class)
+@CucumberOptions(features = {"src/test/resources/scenarios.feature"},
+        glue = {"steps", "steps"},
+        plugin = {"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"})
 public class CucumberRunnerTest {
 
 }
