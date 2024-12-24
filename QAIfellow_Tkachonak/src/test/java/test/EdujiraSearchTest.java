@@ -14,6 +14,7 @@ public class EdujiraSearchTest extends WebHooks {
     EdujiraStartStep edujiraStartStep = new EdujiraStartStep();
     EdujiraProjectStep edujiraProjectStep = new EdujiraProjectStep();
     EdujiraTestSeleniumATHomeworkStep edujiraTestSeleniumATHomeworkStep = new EdujiraTestSeleniumATHomeworkStep();
+    EdujiraBagStep edujiraBagStep = new EdujiraBagStep();
 
     @Test
     public void authorizationTest(){
@@ -47,7 +48,8 @@ public class EdujiraSearchTest extends WebHooks {
         int count = edujiraProjectStep.clickOnProjects();
         edujiraProjectStep.searchTask("HW3", count);
         edujiraTestSeleniumATHomeworkStep.clickOnTestSelenium("TestSeleniumATHomework");
-        new EdujiraBagStep().createBag("HW3",
+        edujiraBagStep.createBag("HW3",
                 "Некорректное отображение текста на странице при использовании масштабирования");
+        edujiraBagStep.changeStatus();
     }
 }

@@ -30,7 +30,7 @@ public class WebHooks {
         System.setProperty("webdriver.chrome.driver", webDriverLocation);
         Configuration.browser = "chrome";
         Configuration.startMaximized = true;
-        open("https://edujira.ifellow.ru/");
+        open(getConfigurationValue("url"));
     }
 
     @AfterEach
