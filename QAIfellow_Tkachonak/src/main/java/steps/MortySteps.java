@@ -46,8 +46,7 @@ public class MortySteps {
         JsonArray characters = lastEpisode.getAsJsonArray("characters");
         String lastCharacterUrl = characters.get(characters.size() - 1).getAsString();
         String characterResponse = getInfoMorty(lastCharacterUrl);
-        JsonObject characterObject = JsonParser.parseString(characterResponse).getAsJsonObject();
-        return characterObject;
+        return JsonParser.parseString(characterResponse).getAsJsonObject();
     }
 
     @И("Получаем данные последнего персонажа из последнего эпизода")

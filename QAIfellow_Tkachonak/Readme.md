@@ -1,11 +1,13 @@
-# Проект разработан с использованием: Java, Junit, Maven, Selenide, Allure
+# Проект разработан с использованием: Java, Junit, Maven, Cucumber, Allure
 
-## Авторизация на сайте [ссылка](https://edujira.ifellow.ru/), поиск количества задач и создание ошибки
+## Работа с документацией  по АPI по сериалу Рик и Морти: [ссылка](https://rickandmortyapi.com/documentation/#episode-schema)
+
+### Написание теста с использованием Json, проверка валидности данных в ответе на запрос при помощи документации по АPI [ссылка](https://reqres.in/)
 
 ***Запуск тестов***
 
 ```bash
-mvn clean test -Dgroup*
+mvn test -Dtest=CucumberRunnerTest
 
 Построение отчета
 mvn allure:serve
